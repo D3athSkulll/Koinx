@@ -14,15 +14,33 @@ const typeMap = {
     sell: "SELL",
 };
 
-const normalizeAsset = (asset = "")=>{
-    return(
-        assetMap[asset.toLowerCase()]
+const normalizeAsset = (
+    asset = ""
+) => {
+
+    const normalized =
+        assetMap[
+            asset.toLowerCase()
+        ];
+
+    return (
+        normalized ||
+        asset.toUpperCase()
     );
 };
 
-const normalizeType = (type = "")=>{
-    return(
-        typeMap[type.toLowerCase()]
+const normalizeType = (
+    type = ""
+) => {
+
+    const normalized =
+        typeMap[
+            type.toLowerCase()
+        ];
+
+    return (
+        normalized ||
+        type.toUpperCase()
     );
 };
 

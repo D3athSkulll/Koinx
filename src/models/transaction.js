@@ -29,7 +29,7 @@ const transactionSchema = new mongoose.Schema(
     },
     timestamp: {
       type: Date,
-      required: true,
+      default: null,
     },
     priceUsd: {
       type: Number,

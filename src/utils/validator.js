@@ -5,15 +5,27 @@ const validateTransactionRow = (row)=>{
         issues.push("MISSING_ASSET");
     }
 
+    if(!row.transaction_id){
+        issues.push("MISSING_TRANSACTION_ID");
+    }
+
     if(!row.type){
         issues.push("MISSING_TYPE");
     }
 
-    if(!row.quantity || isNAN(Number(row.quantity))){
+    if(!row.quantity || isNaN(Number(row.quantity)) || Number(row.quantity) <= 0){
         issues.push("INVALID_QUANTITY");
     }
 
-    if(!row.timestamp || isNAN( new Date(row.timestamp).getTime())){
+    //only trades require price
+    const normalizedType = row.type?.trim();
+    const requiresPrice = normalizedType === "BUY" || normalizedType === "SELL";
+    
+    if(requiresPrice && (!row.price_usd || isNaN(Number(row.price_usd)))){
+        issues.push("INVALID_PRICE_USD");
+    }
+
+    if(!row.timestamp || isNaN( new Date(row.timestamp).getTime())){
         issues.push("INVALID_TIMESTAMP");
     }
 
