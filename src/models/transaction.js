@@ -31,6 +31,18 @@ const transactionSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    priceUsd: {
+      type: Number,
+      default: 0,
+    },
+    fee: {
+      type: Number,
+      default: 0,
+    },
+    note: {
+      type: String,
+      default: "",
+    },
     rawData: {
       type: Object,
       required: true,
