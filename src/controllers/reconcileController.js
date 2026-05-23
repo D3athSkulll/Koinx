@@ -91,8 +91,8 @@ const reconcileController = async(req,res)=>{
         );
 
         const reconciliationResults = matchedResults.map((res)=>({
-            runId,
             ...res,
+            runId,
         })
         );
 
