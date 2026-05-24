@@ -16,6 +16,8 @@ It validates, normalizes, reconciles, and categorizes transactions into:
 
 The reconciliation reports are stored in MongoDB and can also be downloaded as CSV files.
 
+Backend deployed on Render.
+
 ---
 
 # Tech Stack
@@ -26,6 +28,7 @@ The reconciliation reports are stored in MongoDB and can also be downloaded as C
 * Mongoose
 * csv-parser
 * json2csv
+* render
 
 ---
 
