@@ -140,6 +140,25 @@ npm run dev
 ---
 
 # API Endpoints
+## Root / Entry Point
+
+```http id="yqmyt8"
+GET /
+```
+
+Entry point with message
+
+---
+
+## Health
+
+```http id="yqmyt8"
+GET /health
+```
+
+health check for api
+
+---
 
 ## Ingest Transactions
 

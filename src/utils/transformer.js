@@ -9,11 +9,13 @@ const transformTransaction = (
     runId,
     issues
 )=>{
+    //parse raw data to js numbers
     const parsedQuantity = Number(row.quantity);
     const parsedPriceUsd = Number(row.price_usd);
     const parsedFee = Number(row.fee);
     const parsedTimestamp = new Date(row.timestamp);
 
+    //data payload struct
     return{
         runId,
         source,

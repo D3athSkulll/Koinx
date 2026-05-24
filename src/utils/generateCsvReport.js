@@ -2,6 +2,7 @@ import fs from "fs";
 import {Parser} from "json2csv";
 
 const generateCsvReport = (reconciliationResults, runId)=>{
+    //format results
     const formattedResults = reconciliationResults.map((result)=>({
         category: result.category,
         reason: result.reason,
@@ -14,6 +15,7 @@ const generateCsvReport = (reconciliationResults, runId)=>{
     })
 );
 
+//create parser, remove "" from stored csv fields, store at given location also enable dowbnload feature later on
 const parser = new Parser({quote: "", escapedQuote: "",});
 let csv = parser.parse(formattedResults);
 csv = csv.replace(/"/g, "");
