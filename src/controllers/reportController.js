@@ -1,3 +1,5 @@
+import {Parser} from "json2csv";
+
 import ReconciliationResult from "../models/reconciliationResult.js";
 import ReconciliationRun from "../models/reconciliationRun.js";
 import generateCsvReport from "../utils/generateCsvReport.js";
@@ -71,4 +73,43 @@ const getUnmatchedTransactions = async (req, res) => {
   }
 };
 
-export { getFullReport, getSummaryReport, getUnmatchedTransactions };
+const downloadCSVReport = async (req, res) => {
+  try {
+    const { runId } = req.params;
+
+    const results = await ReconciliationResult.find({
+      runId,
+    }).lean();
+
+    if (!results.length) {
+      return res.status(404).json({
+        success: false,
+        message: "No reconciliation report found",
+      });
+    }
+
+    const formattedResults = results.map((result) => ({
+      category: result.category,
+      reason: result.reason,
+      userTransactionId: result.userTransaction?.transaction_id || "",
+      exchangeTransactionId: result.exchangeTransaction?.transaction_id || "",
+    }));
+
+    const parser = new Parser();
+
+    const csv = parser.parse(formattedResults);
+
+    res.header("Content-Type", "text/csv");
+
+    res.attachment(`reconciliation-report-${runId}.csv`);
+
+    return res.send(csv);
+  } catch (err) {
+      return res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+  }
+};
+
+export { downloadCSVReport, getFullReport, getSummaryReport, getUnmatchedTransactions };
