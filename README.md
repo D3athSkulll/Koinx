@@ -26,7 +26,6 @@ The reconciliation reports are stored in MongoDB and can also be downloaded as C
 * Mongoose
 * csv-parser
 * json2csv
-* Multer
 
 ---
 
