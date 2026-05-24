@@ -13,12 +13,12 @@ const validateTransactionRow = (row)=>{
         issues.push("MISSING_TYPE");
     }
 
-    if(!row.quantity || isNaN(Number(row.quantity)) || Number(row.quantity) <= 0){
+    if(row.quantity === undefined || row.quantity === null || isNaN(Number(row.quantity)) || Number(row.quantity) <= 0){
         issues.push("INVALID_QUANTITY");
     }
 
     //only trades require price
-    const normalizedType = row.type?.trim();
+    const normalizedType = row.type?.trim().toUpperCase();
     const requiresPrice = normalizedType === "BUY" || normalizedType === "SELL";
     
     if(requiresPrice && (!row.price_usd || isNaN(Number(row.price_usd)))){

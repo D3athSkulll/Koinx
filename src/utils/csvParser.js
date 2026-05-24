@@ -11,12 +11,20 @@ const parseCSV = (
 )=>{
     return new Promise((resolve, reject)=>{
         const transactions = [];
+        const seenTransactionIds= new Set();
 
         fs.createReadStream(filePath)
             .pipe(csv())
             .on("data", (row)=>{
                 const issues = validateTransactionRow(row);
 
+                if(row.transaction_id){
+                    if(seenTransactionIds.has(row.transaction_id)){
+                        issues.push("DUPLICATE_TRANSACTION");
+                    }else{
+                        seenTransactionIds.add(row.transaction_id);
+                    }
+                }    
                 const transaction = transformTransaction(
                     row,
                     source,
