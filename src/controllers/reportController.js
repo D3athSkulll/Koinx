@@ -1,5 +1,6 @@
 import ReconciliationResult from "../models/reconciliationResult.js";
 import ReconciliationRun from "../models/reconciliationRun.js";
+import generateCsvReport from "../utils/generateCsvReport.js";
 
 const getFullReport = async (req, res) => {
   try {
@@ -7,10 +8,13 @@ const getFullReport = async (req, res) => {
     const results = await ReconciliationResult.find({
       runId,
     });
+
+    const reportPath = generateCsvReport(results, runId);
     return res.status(200).json({
       success: true,
       totalResults: results.length,
       results,
+      reportPath: reportPath
     });
   } catch (err) {
     return res.status(500).json({
