@@ -90,7 +90,8 @@ Supported reconciliation categories:
 * Download reconciliation report as CSV
 
 ---
-
+# Project Flow
+![Repository Diagram](https://raw.githubusercontent.com/D3athSkulll/Koinx/master/diagram.png)
 # Project Structure
 
 ```txt id="6vmh7o"
